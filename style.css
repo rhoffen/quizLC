@@ -1,0 +1,14 @@
+li {
+    font-size: 20px;
+    line-height: 1.2;
+    text-decoration: underline;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+#result1 {
+    display: none;
+    font: 1em sans-serif;
+}
