@@ -11,4 +11,5 @@ li:hover {
 .result {
     display: none;
     font: 1em sans-serif;
+    margin-top: 10px;
 }
