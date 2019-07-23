@@ -14,7 +14,7 @@ const responses = {
         buttonId: "result1"
     },
     "q2": {
-        incorrect: "Incorrect.  Darryl McDaniel is the DMC of Run-DMC.",
+        incorrect: "Incorrect.  Darryl McDaniels is the DMC of Run-DMC.",
         buttonId: "result2"
     }
 }
