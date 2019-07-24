@@ -1,16 +1,53 @@
 const q1Data = questionData.q1;
+const q2Data = questionData.q2;
+
+//List of question identifiers
+const keyList = Object.keys(questionData);
+
+//Construct array of multiple choice option identifiers
+let optionList = [];
+
+for (let index = 0; index < keyList.length; index++) {
+    optionList[index] = [];
+    for (let j = 0; j < 3; j++) {
+        optionList[index][j] = `${keyList[index]}o${j+1}`;
+    }
+}
+
+for (let index = 0; index < keyList.length; index++) {
+    const node = document.createElement("H2");
+    node.setAttribute("id", keyList[index]);
+    const textnode = document.createTextNode(questionData[keyList[index]].question);
+    node.appendChild(textnode);
+    document.body.appendChild(node);
+    for (let j = 0; j < optionList[index].length; j++) {
+
+        
+    }   
+}
 
 const q1 = document.getElementById("q1");
 const q1o1 = document.getElementById("q1o1");
 const q1o2 = document.getElementById("q1o2");
 const q1o3 = document.getElementById("q1o3");
 
+const q2 = document.getElementById("q2");
+const q2o1 = document.getElementById("q2o1");
+const q2o2 = document.getElementById("q2o2");
+const q2o3 = document.getElementById("q2o3");
+
 const optionListq1 = [q1o1, q1o2, q1o3];
+const optionListq2 = [q2o1, q2o2, q2o3];
 
 q1.innerHTML = '1) '  + q1Data.question;
 q1o1.innerHTML = 'a. '  + q1Data.option1[0];
 q1o2.innerHTML = 'b. '  + q1Data.option2[0];
 q1o3.innerHTML = 'c. '  + q1Data.option3[0];
+
+q2.innerHTML = '2) '  + q2Data.question;
+q2o1.innerHTML = 'a. '  + q2Data.option1[0];
+q2o2.innerHTML = 'b. '  + q2Data.option2[0];
+q2o3.innerHTML = 'c. '  + q2Data.option3[0];
 
 for (let index = 1; index <= optionListq1.length; index++) {
     let element = optionListq1[index-1];
@@ -18,9 +55,17 @@ for (let index = 1; index <= optionListq1.length; index++) {
     let option = q1Data[optionKey];
     
     if (option[1]) {
-        console.log(option);
         element.classList.add("correct");
-        console.log(element.classList);
+    }
+}
+
+for (let index = 1; index <= optionListq2.length; index++) {
+    let element = optionListq2[index-1];
+    let optionKey = 'option' + index;
+    let option = q2Data[optionKey];
+    
+    if (option[1]) {
+        element.classList.add("correct");
     }
 }
 //Add event listener for hint buttons
@@ -32,17 +77,6 @@ hints.forEach(hint => addEventListener("click", handleHint));
 const guesses = document.querySelectorAll("li");
 guesses.forEach(guess => addEventListener("click", handleClick));
 
-//Response object to hold properties for different questions. Eventually, all the questions and answers will be stored in database fields.
-const responses = {
-    // "q1": {
-    //     incorrect: "Incorrect.  Purple Rain was the best album of 1983!",
-    //     buttonId: "result1"
-    // },
-    "q2": {
-        incorrect: "Incorrect.  Darryl McDaniels is the DMC of Run-DMC.",
-        buttonId: "result2"
-    }
-}
 
 //Callback function to handle hint requests
 function handleHint(event) {
@@ -70,10 +104,7 @@ function handleHint(event) {
 
 //Callback function to handle click events on list items.
 function handleClick(event) {
-    console.log(event.target);
-    
     const answer = event.target.classList[0]; //Checks for class of 'Correct' on clicked element
-    console.log(answer);
     
     const questionId = event.target.closest("ul").previousElementSibling.id; //Gets the id for the question associated with the list item by traversing the DOM up to the <h2> that contains the question ID.
     const resultBox = document.getElementById(questionData[questionId].resultBoxId);  //Gets the button element associated with that question where the result will appear.  

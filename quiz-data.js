@@ -9,3 +9,14 @@ questionData["q1"] = {
     hintText: "Do a background check!",
     resultBoxId: "result1"
 }
+
+questionData["q2"] = {
+    question: "Which rap group had a song including the lyrics: <br><br>'The name\'s McDaniels, not McDonalds. <br>The rhymes are Darryl\'s and the burgers are Ronald\'s'",
+    "option1": ["2 Live Crew", false],
+    "option2": ["Public Enemy", false],
+    "option3": ["Run-DMC", true],
+    incorrectText: "Incorrect.  Darryl McDaniels is the DMC of Run-DMC.",
+    hintText: "Do a background check!",
+    resultBoxId: "result2"
+}
+
