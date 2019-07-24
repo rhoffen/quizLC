@@ -1,6 +1,3 @@
-const q1Data = questionData.q1;
-const q2Data = questionData.q2;
-
 //List of question identifiers
 const keyList = Object.keys(questionData);
 
@@ -14,60 +11,40 @@ for (let index = 0; index < keyList.length; index++) {
     }
 }
 
+//For each question in the questionData object, create an <h2> element with the question text and append it to <body>
 for (let index = 0; index < keyList.length; index++) {
-    const node = document.createElement("H2");
-    node.setAttribute("id", keyList[index]);
-    const textnode = document.createTextNode(questionData[keyList[index]].question);
-    node.appendChild(textnode);
+    const node = document.createElement("H2"); //Create an <h2> element
+    const questionId = keyList[index]; //Set the ID attribute to q1, q2, etc.
+    node.setAttribute("id", questionId);
+    const questionText = `${index+1}. ${questionData[keyList[index]].question}`; //Have question items be numbered sequentially and retrieve text from questionData object
+    const textnode = document.createTextNode(questionText); //Set the question text as a textnode
+    node.appendChild(textnode); //Append the text to the <h2> node
     document.body.appendChild(node);
+    //Create a <ul> element and append it to the question
+    const list = document.createElement("ul"); //Create an unordered list
+    const listId = `list${keyList[index]}`; //Set the ID attribute of the list to "listq1, listq2, etc."
+    list.setAttribute("id", listId); 
+    document.getElementById(questionId).appendChild(list); //Append the list as a child of the question
+    //Create a <li> item for each option
     for (let j = 0; j < optionList[index].length; j++) {
+        const option = document.createElement("LI"); //Create <li> element
+        const listItemId = optionList[index][j]; //Set the ID attribute of each list item with the option strings constructed for the optionList above
+        option.setAttribute("id", listItemId);
+        const optionKey = `option${j+1}`; //Construct a string to match the option keys in the questionData object
+        const optionText = `${String.fromCharCode(97 +j)}) ${questionData[keyList[index]][optionKey][0]}`; //Set the text to a) first choice, b) second choice, etc.
+        const listnode = document.createTextNode(optionText); //Make a text node from the option text
+        option.appendChild(listnode); //Insert text into <li> element
+        document.getElementById(listId).appendChild(option); //Attach list item to <ul> element
 
-        
-    }   
-}
+        const correct = questionData[keyList[index]][optionKey][1];
+        if (correct) {
+            option.classList.add("correct");
+        }
 
-const q1 = document.getElementById("q1");
-const q1o1 = document.getElementById("q1o1");
-const q1o2 = document.getElementById("q1o2");
-const q1o3 = document.getElementById("q1o3");
-
-const q2 = document.getElementById("q2");
-const q2o1 = document.getElementById("q2o1");
-const q2o2 = document.getElementById("q2o2");
-const q2o3 = document.getElementById("q2o3");
-
-const optionListq1 = [q1o1, q1o2, q1o3];
-const optionListq2 = [q2o1, q2o2, q2o3];
-
-q1.innerHTML = '1) '  + q1Data.question;
-q1o1.innerHTML = 'a. '  + q1Data.option1[0];
-q1o2.innerHTML = 'b. '  + q1Data.option2[0];
-q1o3.innerHTML = 'c. '  + q1Data.option3[0];
-
-q2.innerHTML = '2) '  + q2Data.question;
-q2o1.innerHTML = 'a. '  + q2Data.option1[0];
-q2o2.innerHTML = 'b. '  + q2Data.option2[0];
-q2o3.innerHTML = 'c. '  + q2Data.option3[0];
-
-for (let index = 1; index <= optionListq1.length; index++) {
-    let element = optionListq1[index-1];
-    let optionKey = 'option' + index;
-    let option = q1Data[optionKey];
-    
-    if (option[1]) {
-        element.classList.add("correct");
     }
+    
 }
 
-for (let index = 1; index <= optionListq2.length; index++) {
-    let element = optionListq2[index-1];
-    let optionKey = 'option' + index;
-    let option = q2Data[optionKey];
-    
-    if (option[1]) {
-        element.classList.add("correct");
-    }
-}
 //Add event listener for hint buttons
 const hints = document.querySelectorAll(".hint");
 //console.log(hints);
@@ -105,9 +82,13 @@ function handleHint(event) {
 //Callback function to handle click events on list items.
 function handleClick(event) {
     const answer = event.target.classList[0]; //Checks for class of 'Correct' on clicked element
-    
-    const questionId = event.target.closest("ul").previousElementSibling.id; //Gets the id for the question associated with the list item by traversing the DOM up to the <h2> that contains the question ID.
-    const resultBox = document.getElementById(questionData[questionId].resultBoxId);  //Gets the button element associated with that question where the result will appear.  
+    console.log(answer);
+    const targetQuestionId = event.target.closest("h2").id; //Gets the id for the question associated with the list item by traversing the DOM up to the <h2> that contains the question ID.
+    const resultBox = document.createElement("BUTTON");
+    //const resultBoxId = document.getElementById(questionData[targetQuestionId].resultBoxId);  //Gets the button element associated with that question where the result will appear.  
+    //resultBox.setAttribute("id", resultBoxId);
+    resultBox.classList.add("result");
+    document.getElementById(targetQuestionId).appendChild(resultBox);
 
     if (answer === 'correct') { // If the <li> has a class of "correct"
         resultBox.style.display = "block"; //Change display to "block" (from 'none' in the CSS file)
@@ -116,7 +97,7 @@ function handleClick(event) {
     } else {
         resultBox.style.display = "block";  //Change display to "block" (from 'none' in the CSS file)
         resultBox.style.color = "red";  //Inorrect answer button text printed in red
-        resultBox.innerHTML = questionData[questionId].incorrectText; //Incorrect answer text varies with question
+        resultBox.innerHTML = questionData[targetQuestionId].incorrectText; //Incorrect answer text varies with question
     }
     setTimeout(function(){resultBox.style.display = "none"}, 3000); //Result button disappears in 3s
 }

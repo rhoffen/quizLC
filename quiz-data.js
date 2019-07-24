@@ -11,7 +11,7 @@ questionData["q1"] = {
 }
 
 questionData["q2"] = {
-    question: "Which rap group had a song including the lyrics: <br><br>'The name\'s McDaniels, not McDonalds. <br>The rhymes are Darryl\'s and the burgers are Ronald\'s'",
+    question: "Which rap group had a song including the lyrics: 'The name\'s McDaniels, not McDonalds. / The rhymes are Darryl\'s and the burgers are Ronald\'s'",
     "option1": ["2 Live Crew", false],
     "option2": ["Public Enemy", false],
     "option3": ["Run-DMC", true],
