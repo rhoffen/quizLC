@@ -52,7 +52,7 @@ for (let index = 0; index < keyList.length; index++) {
     hintButton.classList.add("hint");
     const hintButtonText = document.createTextNode("Hint");
     hintButton.appendChild(hintButtonText);
-    document.getElementById(questionId).appendChild(hintButton);
+    document.body.appendChild(hintButton);
 }
 
 //Add an event listener to each list item to detect clicks

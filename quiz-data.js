@@ -7,7 +7,7 @@ questionData["q1"] = {
     "option3": ["Like a Virgin", false],
     incorrectText: "Incorrect.  Purple Rain was the best album of 1983.",
     hintText: "Do a background check!",
-    resultBoxId: "result1"
+    //resultBoxId: "result1"
 }
 
 questionData["q2"] = {
@@ -17,6 +17,15 @@ questionData["q2"] = {
     "option3": ["Run-DMC", true],
     incorrectText: "Incorrect.  Darryl McDaniels is the DMC of Run-DMC.",
     hintText: "Do a background check!",
-    resultBoxId: "result2"
+    //resultBoxId: "result2"
 }
 
+questionData["q3"] = {
+    question: "What does TARDIS stand for?",
+    "option1": ["Totally Awesome Retro DJ In Seattle", false],
+    "option2": ["Time and Relative Dimension in Space", true],
+    "option3": ["Torque and Rotation Deviation in Science", false],
+    incorrectText: "Incorrect.  TARDIS is Time and Relative Dimension in Space",
+    hintText: "The Daleks are coming!  Call the Doctor!",
+    //resultBoxId: "result3"
+}
