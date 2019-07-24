@@ -42,21 +42,31 @@ for (let index = 0; index < keyList.length; index++) {
         }
 
     }
-    
+    //Create a hint button for each question
+    const hintButton = document.createElement("BUTTON");
+    const hintButtonId = `hint${index+1}`;
+    hintButton.setAttribute("id", hintButtonId);
+    hintButton.classList.add("hint");
+    const hintButtonText = document.createTextNode("Hint");
+    hintButton.appendChild(hintButtonText);
+    document.getElementById(questionId).appendChild(hintButton);
 }
-
-//Add event listener for hint buttons
-const hints = document.querySelectorAll(".hint");
-//console.log(hints);
-hints.forEach(hint => addEventListener("click", handleHint));
 
 //Add an event listener to each list item to detect clicks
 const guesses = document.querySelectorAll("li");
-guesses.forEach(guess => addEventListener("click", handleClick));
+guesses.forEach(guess => addEventListener("click", handleClick, false));
+
+//Add event listener for hint buttons
+const hints = document.querySelectorAll(".hint");
+hints.forEach(hint => addEventListener("click", handleHint));
+
+
 
 
 //Callback function to handle hint requests
 function handleHint(event) {
+    console.log(event);
+    event.stopPropagation();
     const id = event.target.id;
     if (id === "hint1") {
         document.body.style.backgroundColor = "purple";
@@ -81,8 +91,9 @@ function handleHint(event) {
 
 //Callback function to handle click events on list items.
 function handleClick(event) {
+    //event.removeEventListener("handleHint");
+    event.stopPropagation();
     const answer = event.target.classList[0]; //Checks for class of 'Correct' on clicked element
-    console.log(answer);
     const targetQuestionId = event.target.closest("h2").id; //Gets the id for the question associated with the list item by traversing the DOM up to the <h2> that contains the question ID.
     const resultBox = document.createElement("BUTTON");
     //const resultBoxId = document.getElementById(questionData[targetQuestionId].resultBoxId);  //Gets the button element associated with that question where the result will appear.  
