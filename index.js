@@ -13,18 +13,20 @@ for (let index = 0; index < keyList.length; index++) {
 
 //For each question in the questionData object, create an <h2> element with the question text and append it to <body>
 for (let index = 0; index < keyList.length; index++) {
-    const node = document.createElement("H2"); //Create an <h2> element
+    const h2Element = document.createElement("H2"); //Create an <h2> element
     const questionId = keyList[index]; //Set the ID attribute to q1, q2, etc.
-    node.setAttribute("id", questionId);
+    h2Element.setAttribute("id", questionId);
     const questionText = `${index+1}. ${questionData[keyList[index]].question}`; //Have question items be numbered sequentially and retrieve text from questionData object
-    const textnode = document.createTextNode(questionText); //Set the question text as a textnode
-    node.appendChild(textnode); //Append the text to the <h2> node
-    document.body.appendChild(node);
+    const h2Text = document.createTextNode(questionText); //Set the question text as a textnode
+    h2Element.appendChild(h2Text); //Append the text to the <h2> element
+    document.body.appendChild(h2Element); //Append the <h2> element to the document body
+
     //Create a <ul> element and append it to the question
-    const list = document.createElement("ul"); //Create an unordered list
+    const list = document.createElement("ul"); //Create an unordered list element
     const listId = `list${keyList[index]}`; //Set the ID attribute of the list to "listq1, listq2, etc."
     list.setAttribute("id", listId); 
     document.getElementById(questionId).appendChild(list); //Append the list as a child of the question
+
     //Create a <li> item for each option
     for (let j = 0; j < optionList[index].length; j++) {
         const option = document.createElement("LI"); //Create <li> element
@@ -36,12 +38,13 @@ for (let index = 0; index < keyList.length; index++) {
         option.appendChild(listnode); //Insert text into <li> element
         document.getElementById(listId).appendChild(option); //Attach list item to <ul> element
 
+        //Add the .correct class to each of the correct answers
         const correct = questionData[keyList[index]][optionKey][1];
         if (correct) {
             option.classList.add("correct");
         }
-
     }
+
     //Create a hint button for each question
     const hintButton = document.createElement("BUTTON");
     const hintButtonId = `hint${index+1}`;
@@ -58,15 +61,14 @@ guesses.forEach(guess => addEventListener("click", handleClick, false));
 
 //Add event listener for hint buttons
 const hints = document.querySelectorAll(".hint");
-hints.forEach(hint => addEventListener("click", handleHint));
-
-
+hints.forEach(hint => addEventListener("mousedown", handleHint, false));
 
 
 //Callback function to handle hint requests
 function handleHint(event) {
     console.log(event);
     event.stopPropagation();
+    event.preventDefault();
     const id = event.target.id;
     if (id === "hint1") {
         document.body.style.backgroundColor = "purple";
@@ -91,13 +93,12 @@ function handleHint(event) {
 
 //Callback function to handle click events on list items.
 function handleClick(event) {
-    //event.removeEventListener("handleHint");
+    event.preventDefault();
     event.stopPropagation();
     const answer = event.target.classList[0]; //Checks for class of 'Correct' on clicked element
     const targetQuestionId = event.target.closest("h2").id; //Gets the id for the question associated with the list item by traversing the DOM up to the <h2> that contains the question ID.
     const resultBox = document.createElement("BUTTON");
-    //const resultBoxId = document.getElementById(questionData[targetQuestionId].resultBoxId);  //Gets the button element associated with that question where the result will appear.  
-    //resultBox.setAttribute("id", resultBoxId);
+
     resultBox.classList.add("result");
     document.getElementById(targetQuestionId).appendChild(resultBox);
 
