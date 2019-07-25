@@ -1,12 +1,12 @@
 const questionData = {};
 
 questionData["q1"] = {
-    question: "What was the best album from 1983?",
+    question: "What was the best album from the 1980s?",
     "option1": ["Purple Rain", true],
     "option2": ["Thriller", false],
     "option3": ["Like a Virgin", false],
-    incorrectText: "Incorrect.  Purple Rain was the best album of 1983.",
-    hintText: "Do a background check!",
+    incorrectText: "Incorrect.  Purple Rain was the best album of the 1980s.",
+    hintText: "It was a movie soundtrack.",
     //resultBoxId: "result1"
 }
 
@@ -16,15 +16,15 @@ questionData["q2"] = {
     "option2": ["Public Enemy", false],
     "option3": ["Run-DMC", true],
     incorrectText: "Incorrect.  Darryl McDaniels is the DMC of Run-DMC.",
-    hintText: "Do a background check!",
+    hintText: "It's Tricky! (To rock a rhyme)",
     //resultBoxId: "result2"
 }
 
 questionData["q3"] = {
     question: "What does TARDIS stand for?",
-    "option1": ["Totally Awesome Retro DJ In Seattle", false],
+    "option1": ["Totally Awesome Retro DJ in Seattle", false],
     "option2": ["Time and Relative Dimension in Space", true],
-    "option3": ["Torque and Rotation Deviation in Science", false],
+    "option3": ["Torque and Rotational Deceleration in Spin", false],
     incorrectText: "Incorrect.  TARDIS is Time and Relative Dimension in Space",
     hintText: "The Daleks are coming!  Call the Doctor!",
     //resultBoxId: "result3"

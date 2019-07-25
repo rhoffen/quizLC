@@ -63,38 +63,16 @@ guesses.forEach(guess => addEventListener("click", handleClick, false));
 const hints = document.querySelectorAll(".hint");
 hints.forEach(hint => addEventListener("mousedown", handleHint, false));
 
-
 //Callback function to handle hint requests
 function handleHint(event) {
-    console.log(event);
-    event.stopPropagation();
-    event.preventDefault();
     const id = event.target.id;
-    if (id === "hint1") {
-        document.body.style.backgroundColor = "purple";
-        event.target.style.fontSize = "30px";
-        event.target.innerHTML = "Do a background check!"
-        setTimeout(function() {
-            document.body.style.backgroundColor = "";
-            event.target.style.fontSize = "13.333px";
-            event.target.innerHTML = "Hint";
-        }, 3000);
-    } else if (id === "hint2") {
-        event.target.style.color = "red";
-        event.target.style.fontSize = "30px";
-        event.target.innerHTML = "It's tricky! (to rock a rhyme)"
-        setTimeout(function() {
-            event.target.style.color = "black";
-            event.target.style.fontSize = "13.333px";
-            event.target.innerHTML = "Hint";
-        }, 3000);
-    }
+    console.log(id);
+    const targetQuestionId = event.target.previousSibling.id;
+    event.target.innerHTML = questionData[targetQuestionId].hintText;
 }
 
 //Callback function to handle click events on list items.
 function handleClick(event) {
-    event.preventDefault();
-    event.stopPropagation();
     const answer = event.target.classList[0]; //Checks for class of 'Correct' on clicked element
     const targetQuestionId = event.target.closest("h2").id; //Gets the id for the question associated with the list item by traversing the DOM up to the <h2> that contains the question ID.
     const resultBox = document.createElement("BUTTON");
@@ -108,7 +86,7 @@ function handleClick(event) {
         resultBox.innerHTML = "Correct!"; //Correct answer text
     } else {
         resultBox.style.display = "block";  //Change display to "block" (from 'none' in the CSS file)
-        resultBox.style.color = "red";  //Inorrect answer button text printed in red
+        resultBox.style.color = "red";  //Incorrect answer button text printed in red
         resultBox.innerHTML = questionData[targetQuestionId].incorrectText; //Incorrect answer text varies with question
     }
     setTimeout(function(){resultBox.style.display = "none"}, 3000); //Result button disappears in 3s

@@ -17,3 +17,13 @@ li:hover {
     font: 1em sans-serif;
     margin-top: 10px;
 }
+
+.hint {
+    color: black;
+    font-size: 13.33px;   
+}
+
+.hint:active {
+    font-size: 30px;
+    color: red;
+}
